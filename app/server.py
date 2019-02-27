@@ -8,17 +8,17 @@ from io import BytesIO
 from fastai import *
 from fastai.vision import *
 
-export_file_url = 'https://www.dropbox.com/s/v6cuuvddq73d1e0/export.pkl?raw=1'
+export_file_url = 'https://drive.google.com/uc?export=download&id=1AIzcs42SITx8_4AfWJNz2S0T6hXlxiEY'
 export_file_name = 'export.pkl'
 
-classes = ['black', 'grizzly', 'teddys']
+classes = ['bicycle','motorbike', 'tricycle']
 path = Path(__file__).parent
 
 app = Starlette()
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_headers=['X-Requested-With', 'Content-Type'])
 app.mount('/static', StaticFiles(directory='app/static'))
 
-async def download_file(url, dest):
+async def download_file(f, dest):
     if dest.exists(): return
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
